@@ -1,0 +1,290 @@
+
+/* GENERAL SETTINGS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f8ff;
+    color: #1e293b;
+    min-height: 100vh;
+}
+
+/* HEADER */
+.header {
+    background: #ffffff;
+    padding: 22px 8%;
+    border-bottom: 1px solid #e5eaf2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2563eb;
+}
+
+.header p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* MAIN CONTENT */
+.container {
+    max-width: 1000px;
+    margin: 65px auto;
+    padding: 20px;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 12px;
+    color: #172554;
+}
+
+.hero h1 span {
+    color: #2563eb;
+}
+
+.hero p {
+    color: #64748b;
+    font-size: 16px;
+}
+
+/* SEARCH */
+.search-box {
+    display: flex;
+    max-width: 650px;
+    margin: 30px auto;
+    gap: 10px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 16px;
+    border: 1px solid #dbe3ef;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.search-box button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 16px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.search-box button:hover {
+    background: #1d4ed8;
+}
+
+/* RESULTS */
+#result {
+    max-width: 650px;
+    margin: 35px auto;
+}
+
+/* PROFILE CARD */
+.profile-card {
+    background: #ffffff;
+    border: 1px solid #e5eaf2;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.04);
+    text-align: center;
+}
+
+.profile-card img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 4px solid #dbeafe;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.profile-card h2 {
+    color: #172554;
+    margin-bottom: 6px;
+}
+
+.username {
+    color: #2563eb;
+    margin-bottom: 15px;
+}
+
+.bio {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* STATISTICS */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.stat {
+    background: #f5f8ff;
+    border-radius: 12px;
+    padding: 18px 8px;
+}
+
+.stat h3 {
+    color: #2563eb;
+    font-size: 22px;
+}
+
+.stat p {
+    color: #64748b;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* PROFILE LINK */
+.profile-link {
+    display: inline-block;
+    margin-top: 20px;
+    background: #2563eb;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 9px;
+    text-decoration: none;
+}
+
+.profile-link:hover {
+    background: #1d4ed8;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 600px) {
+    .header {
+        padding: 18px 5%;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .hero h1 {
+        font-size: 29px;
+    }
+
+    .search-box {
+        flex-direction: column;
+    }
+
+    .stats {
+        gap: 7px;
+    }
+
+    .profile-card {
+        padding: 20px;
+    }
+}
+
+
+.repositories {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.repositories h2 {
+    color: #1e293b;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.repository-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #2563eb;
+    border-radius: 10px;
+    padding: 22px;
+    margin-bottom: 15px;
+    transition: 0.3s ease;
+}
+
+.repository-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.10);
+}
+
+.repository-card h3 {
+    color: #2563eb;
+    margin-bottom: 10px;
+}
+
+.repository-card p {
+    color: #64748b;
+    margin-bottom: 10px;
+}
+
+.repository-card a {
+    display: inline-block;
+    margin-top: 8px;
+    color: #2563eb;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.repository-card a:hover {
+    text-decoration: underline;
+}
+
+
+/* Programming Language Filter */
+#languageFilter {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    padding: 12px 16px;
+    margin: 0 auto 25px;
+
+    background-color: #ffffff;
+    color: #1e293b;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-family: inherit;
+
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Dropdown focus */
+#languageFilter:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Dropdown options */
+#languageFilter option {
+    background-color: #ffffff;
+    color: #1e293b;
+    padding: 10px;
+}

@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Developer Explorer</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo">GitHub Explorer</div>
+        <p>Developer Discovery Platform</p>
+    </header>
+
+    <main class="container">
+
+        <section class="hero">
+            <h1>Discover <span>GitHub Developers</span></h1>
+            <p>
+                Search for developers and explore their GitHub profiles.
+            </p>
+        </section>
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter GitHub username..."
+            >
+
+            <button onclick="searchDeveloper()">
+                Search
+            </button>
+        </div>
+
+        <div id="result"></div>
+
+    </main>
+
+    <script>
+
+        // Stores the repositories returned by GitHub
+        let repositories = [];
+
+        // Search for a GitHub developer
+        async function searchDeveloper() {
+
+            const username = document.getElementById("username").value.trim();
+            const result = document.getElementById("result");
+
+            if (!username) {
+                result.innerHTML = "Please enter a GitHub username.";
+                return;
+            }
+
+            result.innerHTML = "Searching...";
+
+            try {
+
+                // Fetch developer profile
+                const response = await fetch(
+                    `/github/${encodeURIComponent(username)}`
+                );
+
+                if (!response.ok) {
+                    result.innerHTML = "Developer not found.";
+                    return;
+                }
+
+                const developer = await response.json();
+
+                // Fetch developer repositories
+                const repoResponse = await fetch(
+                    `/github/${encodeURIComponent(username)}/repos`
+                );
+
+                if (!repoResponse.ok) {
+                    throw new Error("Could not retrieve repositories.");
+                }
+
+                repositories = await repoResponse.json();
+
+                // Display developer profile and repository section
+                result.innerHTML = `
+
+                    <div class="profile-card">
+
+                        <img src="${developer.avatarUrl}" alt="Developer profile">
+
+                        <h2>${developer.name || developer.username}</h2>
+
+                        <p class="username">@${developer.username}</p>
+
+                        <p class="bio">
+                            ${developer.bio || "No biography available."}
+                        </p>
+
+                        <div class="stats">
+
+                            <div class="stat">
+                                <h3>${developer.publicRepos}</h3>
+                                <p>Repositories</p>
+                            </div>
+
+                            <div class="stat">
+                                <h3>${developer.followers}</h3>
+                                <p>Followers</p>
+                            </div>
+
+                            <div class="stat">
+                                <h3>${developer.following}</h3>
+                                <p>Following</p>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="${developer.profileUrl}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="profile-link"
+                        >
+                            View GitHub Profile
+                        </a>
+
+                    </div>
+
+                    <div class="repositories">
+
+                        <h2>Public Repositories</h2>
+
+                        <select
+                            id="languageFilter"
+                            onchange="filterRepositories()"
+                        >
+                            <option value="all">All Languages</option>
+                        </select>
+
+                        <div id="repositoryList"></div>
+
+                    </div>
+
+                `;
+
+                // Get unique programming languages
+                const languages = [...new Set(
+                    repositories
+                        .map(repo => repo.language)
+                        .filter(language => language !== null)
+                )];
+
+                // Populate the language dropdown
+                const languageFilter = document.getElementById("languageFilter");
+
+                languages.forEach(language => {
+
+                    languageFilter.innerHTML += `
+                        <option value="${language}">${language}</option>
+                    `;
+
+                });
+
+                // Display all repositories initially
+                displayRepositories(repositories);
+
+            } catch (error) {
+
+                console.error(error);
+
+                result.innerHTML =
+                    "Something went wrong. Please try again.";
+
+            }
+        }
+
+
+        // Filter repositories by programming language
+        function filterRepositories() {
+
+            const selectedLanguage =
+                document.getElementById("languageFilter").value;
+
+            const filteredRepositories = selectedLanguage === "all"
+                ? repositories
+                : repositories.filter(
+                    repo => repo.language === selectedLanguage
+                );
+
+            displayRepositories(filteredRepositories);
+
+        }
+
+
+        // Display repository cards
+        function displayRepositories(repos) {
+
+            const repositoryList =
+                document.getElementById("repositoryList");
+
+            if (repos.length === 0) {
+                repositoryList.innerHTML =
+                    "<p>No repositories found for this selection.</p>";
+                return;
+            }
+
+            repositoryList.innerHTML = repos.map(repo => `
+
+                <div class="repository-card">
+
+                    <h3>${repo.name}</h3>
+
+                    <p>
+                        ${repo.description || "No description available."}
+                    </p>
+
+                    <p>
+                        Language: ${repo.language || "Not specified"}
+                    </p>
+
+                    <p>
+                        ⭐ ${repo.stars} Stars
+                    </p>
+
+                    <a
+                        href="${repo.repositoryUrl}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        View Repository
+                    </a>
+
+                </div>
+
+            `).join("");
+
+        }
+
+    </script>
+
+</body>
+</html>

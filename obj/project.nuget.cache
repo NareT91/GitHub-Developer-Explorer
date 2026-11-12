@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "3Z/m56a7gX4=",
+  "success": true,
+  "projectFilePath": "/Users/naretlabela/GitHubDeveloperExplorer/GitHubDeveloperExplorer/GitHubDeveloperExplorer.csproj",
+  "expectedPackageFiles": [
+    "/Users/naretlabela/.nuget/packages/microsoft.aspnetcore.openapi/11.0.0/microsoft.aspnetcore.openapi.11.0.0.nupkg.sha512",
+    "/Users/naretlabela/.nuget/packages/microsoft.openapi/3.11.0/microsoft.openapi.3.11.0.nupkg.sha512"
+  ],
+  "logs": []
+}
